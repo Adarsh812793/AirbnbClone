@@ -1,0 +1,60 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+
+            <div class="form-card">
+                <h1 class="form-title">Edit Listing</h1>
+                <p class="form-subtitle">Update the details of your listing below.</p>
+
+                <form method="post" action="/listings/<%= listing._id %>?_method=PATCH" novalidate class="needs-validation" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
+                        <div class="invalid-feedback">Give Valid Title</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea name="listing[description]" class="form-control" rows="4" required><%= listing.description %></textarea>
+                    </div>
+
+                    <!-- A small preview of option before editing -->
+                    <div class="mb-3">
+                        <a href="<%= listing.image %>">Preview of existing image</a>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Upload New Image</label>
+                        <input type="file" name="listing[image]" value="<%= listing.image %>" class="form-control" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">&#8377;</span>
+                                <input type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Location</label>
+                            <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Country</label>
+                        <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Update Listing</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

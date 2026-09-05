@@ -1,0 +1,18 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+    
+    <p class="subtitle">Login to get started</p>
+
+    <form method="POST" action="/user/login" novalidate class="needs-validation">
+      <input type="text" class="form-control" name="username" placeholder="Username" required>
+      <input type="password" class="form-control" name="password" placeholder="Password" required minlength="6">
+      <button type="submit" class="btn-submit">Login</button>
+    </form>
+
+    <div class="auth-switch">
+      Don't have an account? <a href="/user/signup">Create account</a>
+    </div>
+  </div>
+</div>

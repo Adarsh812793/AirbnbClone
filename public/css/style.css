@@ -1,0 +1,426 @@
+body{
+    background-color: #ffffff;
+}
+
+/* Styling for cards->home.ejs */
+.listing-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.listing-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.listing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-wrapper {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.35s ease;
+}
+
+.listing-card:hover .card-img-wrapper img {
+    transform: scale(1.06);
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #222;
+}
+
+.card-price {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.card-price span {
+    font-size: 0.85rem;
+}
+
+.btn-primary {
+    background-color: #fe424d;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #e63946;
+}
+
+/* Styling for show.ejs */
+.listing-detail-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.detail-img-wrapper {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.detail-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.detail-body {
+    padding: 28px 32px;
+}
+
+.detail-title {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: #222;
+}
+
+.detail-location {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+}
+
+.detail-description {
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.6;
+}
+
+.detail-price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #222;
+}
+
+.detail-price span {
+    font-size: 1rem;
+}
+
+.btn-outline-dark,
+.btn-danger {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+@media (max-width: 576px) {
+    .detail-img-wrapper { height: 260px; }
+    .detail-title { font-size: 1.5rem; }
+    .detail-body { padding: 20px; }
+}
+
+/* new.ejs styling */
+.form-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+    font-weight: 700;
+    font-size: 1.75rem;
+    margin-bottom: 4px;
+    color: #222;
+}
+
+.form-subtitle {
+    color: #777;
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #fe424d;
+    box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.15);
+}
+
+.input-group-text {
+    border-radius: 8px 0 0 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+.input-group .form-control {
+    border-radius: 0 8px 8px 0;
+}
+
+.btn-primary {
+    background-color: #fe424d;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e63946;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 576px) {
+    .form-card { padding: 20px; }
+    .form-title { font-size: 1.4rem; }
+}
+
+/* Styling for navbar */
+.custom-navbar {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  padding: 0.8rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar-brand { color: #ff385c !important; font-size: 1.4rem; }
+
+.nav-add-listing {
+  color: #222;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 24px;
+  transition: background 0.2s ease;
+  white-space: nowrap;
+}
+.nav-add-listing:hover { background: #f7f7f7; color: #222; }
+.nav-add-listing i { margin-right: 4px; }
+
+.btn-outline-auth,
+.btn-fill-auth {
+  border-radius: 24px;
+  padding: 0.55rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn-outline-auth {
+  border: 1.5px solid #dddddd;
+  background: transparent;
+  color: #222;
+}
+.btn-outline-auth:hover {
+  border-color: #222;
+  background: #f7f7f7;
+  transform: translateY(-1px);
+}
+
+.btn-fill-auth {
+  background: linear-gradient(135deg, #ff385c, #e61e4d);
+  color: #fff;
+  border: none;
+  box-shadow: 0 3px 10px rgba(255,56,92,0.3);
+}
+.btn-fill-auth:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255,56,92,0.4);
+  color: #fff;
+}
+.btn-fill-auth:active,
+.btn-outline-auth:active { transform: translateY(0); }
+
+@media (max-width: 991px) {
+  .auth-buttons { justify-content: flex-start; }
+  .nav-add-listing { display: inline-block; }
+}
+
+/* ===== Auth (signup/login) card ===== */
+.auth-wrapper {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.auth-card h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.auth-card p.subtitle {
+  color: #6b6b6b;
+  margin-bottom: 1.8rem;
+}
+
+.auth-card .form-control {
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.auth-card .form-control:focus {
+  border-color: #ff385c;
+  box-shadow: 0 0 0 3px rgba(255,56,92,0.15);
+}
+
+.auth-card .btn-submit {
+  width: 100%;
+  background: #ff385c;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+.auth-card .btn-submit:hover { background: #e0304f; }
+
+.auth-switch { text-align: center; margin-top: 1.2rem; font-size: 0.9rem; }
+.auth-switch a { color: #ff385c; font-weight: 600; text-decoration: none; }
+
+@media (max-width: 576px) {
+  .auth-card { padding: 1.8rem 1.3rem; }
+}
+
+/* ================= MAP RELATED STYLING ================= */
+
+.map-card {
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Map Header */
+
+.map-card-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.map-card-header h5 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #222;
+}
+
+.map-card-header h5 i {
+    color: #fe424d;
+}
+
+.map-address {
+    margin-top: 5px !important;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Directions Button */
+
+.btn-directions {
+    background-color: #fe424d;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-directions:hover {
+    background-color: #e63946;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Leaflet Map */
+
+#map {
+    height: 420px;
+    width: 100%;
+}
+
+/* Remove Leaflet's default ugly border feeling */
+
+.leaflet-container {
+    font-family: inherit;
+}
+
+/* Mobile responsiveness */
+
+@media (max-width: 576px) {
+
+    .map-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 18px;
+    }
+
+    .btn-directions {
+        width: 100%;
+        text-align: center;
+    }
+
+    #map {
+        height: 320px;
+    }
+}
+
+    

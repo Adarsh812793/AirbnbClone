@@ -1,0 +1,63 @@
+<footer class="footer mt-auto py-4">
+    <div class="container">
+        <div class="row gy-4">
+
+            <!-- Brand + tagline -->
+            <div class="col-md-4">
+                <h5 class="fw-bold mb-2">🏡 WanderStay</h5>
+                <p class="text-muted small mb-0">Find your next stay, anywhere in the world.</p>
+            </div>
+
+            <!-- Quick links -->
+            <div class="col-md-4">
+                <h6 class="fw-semibold mb-3">Company</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="/about" class="footer-link">About Us</a></li>
+                    <li class="mb-2"><a href="/listings" class="footer-link">Explore Listings</a></li>
+                    <li class="mb-2"><a href="/contact" class="footer-link">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Social icons -->
+            <div class="col-md-4">
+                <h6 class="fw-semibold mb-3">Connect With Us</h6>
+                <div class="d-flex gap-3 fs-5">
+                    <a href="#" class="footer-icon"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="footer-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-icon"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="footer-icon"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="my-4">
+
+        <div class="text-center small text-muted">
+            &copy; <%= new Date().getFullYear() %> WanderStay. All rights reserved. Made by ADARSH A LADWA<br>Co-Partner Shreeya M.S
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer {
+        background-color: #f8f9fa;
+        border-top: 1px solid #eee;
+    }
+    .footer-link {
+        text-decoration: none;
+        color: #555;
+        transition: color 0.2s ease;
+    }
+    .footer-link:hover {
+        color: #fe424d; /* Airbnb-style accent */
+    }
+    .footer-icon {
+        color: #555;
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .footer-icon:hover {
+        color: #fe424d;
+        transform: translateY(-2px);
+    }
+</style>

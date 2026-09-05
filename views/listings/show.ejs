@@ -1,0 +1,292 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+<!-- Step 01: To show the individual listing details -->
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="listing-detail-card">
+                <div class="detail-img-wrapper">
+                    <img src="<%= listing.image %>" alt="<%= listing.title %>"
+                         onerror="this.src='https://via.placeholder.com/800x400?text=No+Image'">
+                </div>
+
+                <div class="detail-body">
+                    <p class="detail-owned">This Listing is owned by <b><%= listing.owner.username %></b></p>
+
+                    <h1 class="detail-title"><%= listing.title %></h1>
+
+                    <p class="detail-location">
+                        <i class="fa-solid fa-location-dot me-1"></i>
+                        <%= listing.location %>, <%= listing.country %>
+                    </p>
+
+                    <hr>
+
+                    <p class="detail-description"><%= listing.description %></p>
+
+                    <hr>
+
+                    <p class="detail-price">
+                        &#8377;<%= listing.price.toLocaleString('en-IN') %>
+                        <span class="text-muted fw-normal">/ night</span>
+                    </p>
+
+                    <!-- User must first login and have authority to delete and edit listing -->
+                    <% if(currUser && currUser._id.equals(listing.owner._id)){ %> 
+                    <div class="d-flex gap-2 mt-4">
+                        <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-dark">
+                            <i class="fa-solid fa-pen me-1"></i> Edit
+                        </a>
+
+                        <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="m-0">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash me-1"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+                    <% } %>
+                   
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ============================================= -->
+<!-- Step 02: REVIEW FORM                          -->
+<!-- ============================================= -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="review-form-card p-4">
+                <h4 class="mb-3">
+                    <i class="fa-regular fa-pen-to-square me-2"></i>Leave a Review
+                </h4>
+                <form action="/listings/<%= listing._id %>/reviews" method="post"
+                      novalidate class="needs-validation">
+
+                         <!-- 1.Five Star Pattern -->
+                    <div class="mb-3">
+                        <label class="form-label d-block">Your Rating</label>
+                        <div class="star-rating">
+                            <input type="radio" name="review[rating]" id="star5" value="5" required>
+                            <label for="star5" title="5 stars"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" name="review[rating]" id="star4" value="4">
+                            <label for="star4" title="4 stars"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" name="review[rating]" id="star3" value="3">
+                            <label for="star3" title="3 stars"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" name="review[rating]" id="star2" value="2">
+                            <label for="star2" title="2 stars"><i class="fa-solid fa-star"></i></label>
+
+                            <input type="radio" name="review[rating]" id="star1" value="1">
+                            <label for="star1" title="1 star"><i class="fa-solid fa-star"></i></label>
+                        </div>
+                        <div id="ratingError" class="text-danger small mt-1 d-none">
+                            Please select a rating.
+                        </div>
+                    </div>
+
+                    <!-- 2. Comment Area -->
+                    <div class="mb-3">
+                        <label for="reviewComment" class="form-label">Your Review</label>
+                        <textarea name="review[comment]" id="reviewComment"
+                                  class="form-control" rows="3"
+                                  placeholder="Share details about your stay..."
+                                  required minlength="5"></textarea>
+                        <!-- Bootstrap auto-shows this when the field is invalid on submit -->
+                        <div class="invalid-feedback">
+                            Please write at least 5 characters.
+                        </div>
+                    </div>
+
+                    <!-- 3.Submit button -->
+                    <button type="submit" class="btn btn-dark px-4">
+                        <i class="fa-solid fa-paper-plane me-1"></i> Submit Review
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ============================================= -->
+<!-- Step 03: EXISTING REVIEWS LIST                -->
+<!-- ============================================= -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <h4 class="mb-3">
+                <i class="fa-solid fa-comments me-2"></i>
+                Reviews (<%= listing.reviews.length %>)
+            </h4>
+
+            <!-- Guard clause: show empty state if no reviews exist yet -->
+            <% if (listing.reviews.length === 0) { %>
+                <p class="text-muted">No reviews yet. Be the first to share your experience!</p>
+            <% } else { %>
+                <div class="row g-3">
+                    <% for (let review of listing.reviews) { %>
+                        <div class="col-md-6">
+                            <!-- Delete form now lives INSIDE the card, not after it,
+                                 so it's part of the same box instead of floating below -->
+                            <div class="review-card p-3 h-100 d-flex flex-column">
+
+                                <div class="mb-2">
+                                    <% for (let i = 1; i <= 5; i++) { %>
+                                        <% if (i <= review.rating) { %>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                        <% } else { %>
+                                            <i class="fa-regular fa-star text-warning"></i>
+                                        <% } %>
+                                    <% } %>
+                                </div>
+
+                                <!-- flex-grow-1 pushes the delete button down to the
+                                     bottom of the card even when comment text is short,
+                                     keeping every card's footer aligned -->
+                                <p class="review-comment flex-grow-1"><%= review.comment %></p>
+
+                                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=delete"
+                                      method="post" class="text-end mt-2">
+
+                                    <!-- Only display delete button if user is looged in and reviewowner=currently loggedin user -->
+                                    <% if(currUser && currUser._id.equals(review.created_by) && review.created_by) {%>
+                                    <button type="submit" class="btn btn-sm btn-outline-danger review-delete-btn">
+                                        <i class="fa-solid fa-trash-can me-1"></i>Delete
+                                    </button>
+                                    <% } %>
+                                </form>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            <% } %>
+
+        </div>
+    </div>
+</div>
+
+<!-- Step04: Map related things -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="map-card">
+                <div class="map-card-header">
+                    <div>
+                        <h5 class="mb-0"><i class="fa-solid fa-location-dot me-2"></i>Where you'll be</h5>
+                        <p class="map-address mb-0"><%= listing.location %>, <%= listing.country %></p>
+                    </div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=<%= listing.geometry.coordinates[1] %>,<%= listing.geometry.coordinates[0] %>"
+                       target="_blank" class="btn btn-directions">
+                        <i class="fa-solid fa-diamond-turn-right me-1"></i> Directions
+                    </a>
+                </div>
+                <div id="map"
+                     data-coordinates='<%- JSON.stringify(listing.geometry.coordinates) %>'
+                     data-title="<%= listing.title %>">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================================= -->
+<!-- STYLES for star input + review cards           -->
+<!-- ============================================= -->
+<style>
+    .review-form-card,
+    .review-card {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    /* ---- Interactive star rating input ---- */
+    .star-rating {
+        display: inline-flex;
+        flex-direction: row-reverse; /* reverses visual order back to 1->5 left to right */
+        justify-content: flex-end;
+    }
+    .star-rating input {
+        display: none; /* hide actual radio buttons, keep them accessible via labels */
+    }
+    .star-rating label {
+        font-size: 1.8rem;
+        color: #ddd;           /* default unselected star color */
+        cursor: pointer;
+        padding: 0 2px;
+        transition: color 0.15s ease-in-out;
+    }
+    /* Light up all stars from the checked one onward (because row-reverse,
+       "~" selects labels that come AFTER in DOM order = stars to the left visually) */
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: #ffb400;
+    }
+
+    /* Styling for delete btn */
+    .review-comment {
+        color: #333;
+        line-height: 1.5;
+    }
+
+    .review-delete-btn {
+    border-radius: 6px;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    }
+    .review-delete-btn:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
+</style>
+
+<!-- ============================================= -->
+<!-- SCRIPT: Bootstrap validation + star required check -->
+<!-- ============================================= -->
+<script>
+    // Bootstrap's built-in validation styling only activates once a form
+    // has the 'was-validated' class. We add that on submit attempt, then
+    // block submission if the browser reports any field as invalid.
+    (function () {
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+
+                // Radio groups don't reliably trigger :invalid styling, so we
+                // check manually: is any "review[rating]" radio checked?
+                const ratingChecked = form.querySelector('input[name="review[rating]"]:checked');
+                const ratingError = document.getElementById('ratingError');
+
+                if (!ratingChecked) {
+                    ratingError.classList.remove('d-none');
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    ratingError.classList.add('d-none');
+                }
+
+                // Standard Bootstrap check for the rest of the form (textarea etc.)
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
