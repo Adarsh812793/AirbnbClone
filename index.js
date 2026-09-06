@@ -5,7 +5,7 @@ if(process.env.NODE_ENV!='production'){
     const dotenv=require('dotenv').config();
 }
 
-console.log(process.env.MONGODB_URI);
+
 
 const express=require('express');
 const mongoose=require('mongoose');
@@ -149,14 +149,6 @@ app.use((req,res,next)=>{
 // 6.ERROR HANDLING MIDDDLEWARE
 app.use((err,req,res,next)=>{
     console.log(err);
-    console.log(typeof err);
-
-    // if(err.UserExistsError){
-    //     let errMessage=err.UserExistsError;
-    //     res.send('User already exits')
-    // }
-
-    // let {statusCode,errMessage}=err;
 
     res.render('error.ejs',{err});
     // res.status(err.status).send(err.message);
